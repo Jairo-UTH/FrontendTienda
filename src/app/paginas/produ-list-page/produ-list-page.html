@@ -1,0 +1,63 @@
+<div class="products-page">
+
+  <!-- Categorías -->
+  <aside class="categories">
+
+    <h2 class="categories__title">
+      Categorías
+    </h2>
+
+    <mat-nav-list>
+      <a mat-list-item
+         class="category-item"
+         [activated]="categorySelected() === '0'"
+         (click)="categorySelected.set('0')">
+        <mat-icon matListItemIcon>apps</mat-icon>
+        <span matListItemTitle>Todos</span>
+      </a>
+
+      @for (cat of categories(); track $index) {
+      <a mat-list-item
+         class="category-item"
+         [activated]="categorySelected() === cat.categoryId"
+         (click)="categorySelected.set(cat.categoryId)">
+        <mat-icon matListItemIcon>{{ cat.icon }}</mat-icon>
+        <span matListItemTitle>{{ cat.name }}</span>
+      </a>
+      }
+    </mat-nav-list>
+
+  </aside>
+
+
+  <!-- Productos -->
+  <main class="products">
+
+    <div class="products__header">
+      <h1>Productos</h1>
+    </div>
+
+    @if(products().length ===0)
+    {
+    <p>No se encontraron productos</p>
+    }@else{
+    <div class="products__grid">
+      @for(product of products(); track $index)
+      {
+      <app-product-card [product]="product" (addToCart)="onAddToCart($event)"></app-product-card>
+  }
+</div>
+
+
+
+    
+
+    }
+
+
+
+
+
+  </main>
+
+</div>

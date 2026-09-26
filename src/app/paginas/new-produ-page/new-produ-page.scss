@@ -1,0 +1,56 @@
+@use "@angular/material" as mat;
+
+:host {
+  @include mat.form-field-overrides((container-height: 40px, outlined-container-shape: var(--mat-sys-corner-small), container-vertical-padding: 8px, ));
+
+  @include mat.button-overrides((protected-hover-container-elevation-shadow: var(--mat-sys-level1), filled-horizontal-padding: 15px, outlined-horizontal-padding: 15px, protected-horizontal-padding: 15px, text-horizontal-padding: 15px, filled-container-shape: var(--mat-sys-corner-small), outlined-container-shape: var(--mat-sys-corner-small), protected-container-shape: var(--mat-sys-corner-small), text-container-shape: var(--mat-sys-corner-small), ));
+
+  @include mat.snack-bar-overrides((button-color: orange, container-color: red, ));
+}
+
+
+.product-page {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.product-card {
+  width: 100%;
+  max-width: 700px;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-row mat-form-field {
+  width: 100%;
+}
+
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px 24px;
+}
+
+.mat-mdc-snack-bar-container.mi-snackbar-personalizado {
+  --mdc-snackbar-container-color: #2e7d32 !important;
+  /* Color de fondo (ej. verde) */
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  /* Color del texto */
+  --mat-mdc-snack-bar-button-color: #ffffff;
+  /* Color del botón de acción */
+}

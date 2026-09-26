@@ -1,0 +1,71 @@
+<nav class="navbar bg-body-tertiary mb-4">
+  <div class="container-fluid">
+    <h1 class="navbar-brand">Registrar Empleado</h1>
+    <div class="d-flex">
+      <a href="" class="btn btn-warning me-2" routerLink="/listEmployee">Volver</a>
+      <button class="btn btn-success" type="button" (click)="onSave()"
+              [disabled]="employeeForm().invalid()">
+        Guardar
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="d-flex justify-content-center">
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <form>
+      <div class="mb-3">
+        <label class="form-label">Nombre Completo</label>
+        <input type="text" class="form-control" [formField]="employeeForm.fullName">
+        @if(employeeForm.fullName().touched() && employeeForm.fullName().invalid()){
+        <small class="text-danger">
+          {{employeeForm.fullName().errors()[0].message}}
+        </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label class="form-label"> Email</label>
+        <input type="email" class="form-control" [formField]="employeeForm.email">
+        @if(employeeForm.email().touched() && employeeForm.email().invalid()){
+        <small class="text-danger">
+          {{employeeForm.email().errors()[0].message}}
+        </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label class="form-label"> Fecha de Nacimiento</label>
+        <input type="date" class="form-control" [formField]="employeeForm.birthDate">
+        @if(employeeForm.birthDate().touched() && employeeForm.birthDate().invalid()){
+        <small class="text-danger">
+          {{employeeForm.birthDate().errors()[0].message}}
+        </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label class="form-label"> Cargo</label>
+        <select class="form-select" [formField]="employeeForm.positionId">
+          <option value="0" disabled>--Seleccionar--</option>
+          @for (position of positions(); track position.positionId) {
+          <option [value]="position.positionId">{{position.name}}</option>
+          }
+        </select>
+        @if(employeeForm.positionId().touched() && employeeForm.positionId().invalid()){
+        <small class="text-danger">
+          {{employeeForm.positionId().errors()[0].message}}
+        </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label class="form-label"> Contraseña</label>
+        <input type="password" class="form-control" [formField]="employeeForm.password">
+        @if(employeeForm.password().touched() && employeeForm.password().invalid()){
+        <small class="text-danger">
+          {{employeeForm.password().errors()[0].message}}
+        </small>
+        }
+      </div>
+
+    </form>
+
+  </div>
+</div>

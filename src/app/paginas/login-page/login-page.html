@@ -1,0 +1,66 @@
+
+<div class="login-page">
+
+  <mat-card class="login-card">
+
+    <mat-card-header>
+      <mat-card-title>Iniciar sesión</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <form class="login-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo*</mat-label>
+
+          <input matInput
+                 type="email"
+                 [formField]="loginForm.email">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña*</mat-label>
+
+          <input matInput
+                 type="password"
+                 [formField]="loginForm.password">
+        </mat-form-field>
+
+      </form>
+
+    </mat-card-content>
+
+
+    <mat-card-actions>
+
+      <button mat-stroked-button
+              type="button"
+              class="btn-limpiar">
+
+        <span class="icon">×</span>
+        Limpiar
+
+      </button>
+
+
+      <button mat-flat-button
+              color="primary"
+              type="button"
+              class="btn-entrar"
+              [disabled]="loginForm().invalid()"
+              (click)="login()">
+
+        <span class="icon">+</span>
+        Entrar
+
+      </button>
+
+    </mat-card-actions>
+
+  </mat-card>
+
+</div>
+
+

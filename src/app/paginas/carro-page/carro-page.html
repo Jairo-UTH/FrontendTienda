@@ -1,0 +1,235 @@
+```html
+<div class="cart-page">
+
+  <!-- Continuar comprando -->
+  <div class="cart-page__top">
+    <a mat-stroked-button routerLink="/">
+      <mat-icon>arrow_back</mat-icon>
+      Continuar comprando
+    </a>
+  </div>
+
+
+  <!-- Contenido principal -->
+  <div class="cart-layout">
+
+    <!-- ========================= -->
+    <!-- Productos -->
+    <!-- ========================= -->
+
+    <section class="cart-products">
+
+      <h1>
+        Productos del carrito ({{ cartService.totalItems() }})
+      </h1>
+
+
+      <!-- Carrito vacío -->
+      @if (cartService.getItems().length === 0) {
+
+        <div class="empty-cart">
+
+          <mat-icon>shopping_cart</mat-icon>
+
+          <h2>
+            Tu carrito está vacío
+          </h2>
+
+          <p>
+            Agrega algunos productos para continuar.
+          </p>
+
+          <a mat-flat-button routerLink="/">
+            Continuar comprando
+          </a>
+
+        </div>
+
+      } @else {
+
+        <!-- Productos del carrito -->
+        <div class="cart-items">
+
+          @for (item of cartService.getItems(); track item.productId) {
+
+            <mat-card class="cart-item">
+
+              <!-- Imagen -->
+              <img
+                class="cart-item__image"
+                [src]="item.image"
+                [alt]="item.name"
+              >
+
+
+              <!-- Información -->
+              <div class="cart-item__info">
+
+                <h2 class="cart-item__name">
+                  {{ item.name }}
+                </h2>
+
+                <p class="cart-item__price">
+                  L/ {{ item.price | number: '1.2-2' }}
+                </p>
+
+
+                <!-- Cantidad -->
+                <div class="cart-item__quantity">
+
+                  <!-- Disminuir -->
+                  <button
+                    mat-icon-button
+                    type="button"
+                    (click)="decreaseQuantity(item.productId)"
+                  >
+                    <mat-icon>remove</mat-icon>
+                  </button>
+
+
+                  <!-- Cantidad actual -->
+                  <span class="quantity">
+                    {{ item.quantity }}
+                  </span>
+
+
+                  <!-- Aumentar -->
+                  <button
+                    mat-icon-button
+                    type="button"
+                    (click)="increaseQuantity(item.productId)"
+                  >
+                    <mat-icon>add</mat-icon>
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <!-- Precio total del producto -->
+              <div class="cart-item__total">
+
+                <span>
+                  L/ {{ item.price * item.quantity | number: '1.2-2' }}
+                </span>
+
+              </div>
+
+
+              <!-- Eliminar -->
+              <div class="cart-item__delete">
+
+                <button
+                  mat-icon-button
+                  type="button"
+                  color="warn"
+                  (click)="removeItem(item.productId)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+
+              </div>
+
+            </mat-card>
+
+          }
+
+        </div>
+
+      }
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- Resumen de la orden -->
+    <!-- ========================= -->
+
+    <aside class="order-summary">
+
+      <mat-card>
+
+        <mat-card-header>
+
+          <mat-card-title>
+            Resumen de la orden
+          </mat-card-title>
+
+        </mat-card-header>
+
+
+        <mat-card-content>
+
+          <!-- Subtotal -->
+          <div class="summary-row">
+
+            <span>
+              Subtotal
+            </span>
+
+            <strong>
+              L/ {{ subtotal() | number: '1.2-2' }}
+            </strong>
+
+          </div>
+
+
+          <!-- Impuestos -->
+          <div class="summary-row">
+
+            <span>
+              Impuestos (18%)
+            </span>
+
+            <strong>
+              L/ {{ taxes() | number: '1.2-2' }}
+            </strong>
+
+          </div>
+
+
+          <!-- Separador -->
+          <mat-divider></mat-divider>
+
+
+          <!-- Total -->
+          <div class="summary-row summary-row--total">
+
+            <span>
+              Total
+            </span>
+
+            <strong>
+              L/ {{ total() | number: '1.2-2' }}
+            </strong>
+
+          </div>
+
+
+          <!-- Terminar compra -->
+          <button
+            mat-flat-button
+            class="checkout-button"
+            type="button"
+            (click)="finishPurchase()"
+          >
+
+            <mat-icon>
+              shopping_cart_checkout
+            </mat-icon>
+
+            Terminar compra
+
+          </button>
+
+        </mat-card-content>
+
+      </mat-card>
+
+    </aside>
+
+  </div>
+
+</div>
+```

@@ -1,0 +1,125 @@
+/* =========================================================
+   TARJETA DEL PRODUCTO
+   ========================================================= */
+
+.product-card {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+
+  &__image {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    padding: 16px;
+  }
+
+
+  &__name {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+
+  &__price {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+
+  &__actions {
+    padding: 0 16px 16px;
+  }
+
+
+  &__button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .product-card__image {
+    height: 190px;
+  }
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .product-card__image {
+    height: 160px;
+    padding: 10px;
+  }
+
+
+  .product-card__content {
+    padding: 12px;
+  }
+
+
+  .product-card__name {
+    font-size: 15px;
+  }
+
+
+  .product-card__price {
+    font-size: 17px;
+  }
+
+
+  .product-card__actions {
+    padding: 0 12px 12px;
+  }
+
+
+  .product-card__button {
+
+    font-size: 0;
+    min-width: 0;
+
+    mat-icon {
+      margin: 0;
+    }
+  }
+}
+
+
+/* =========================================================
+   MÓVILES MUY PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .product-card__image {
+    height: 200px;
+  }
+
+
+  .product-card__button {
+    font-size: inherit;
+  }
+}

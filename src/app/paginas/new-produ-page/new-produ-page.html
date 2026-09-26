@@ -1,0 +1,145 @@
+<div class="product-page">
+
+  <mat-card class="product-card">
+
+    <mat-card-header>
+      <mat-card-title> Crear producto </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <form class="product-form">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Categoría</mat-label>
+          <mat-select [formField]="productForm.categoryId">
+            @for (category of categories(); track category.categoryId) {
+            <mat-option [value]="category.categoryId">
+              {{ category.name }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput [formField]="productForm.name">
+        </mat-form-field>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Precio</mat-label>
+            <input matInput type="number" [formField]="productForm.price">
+            <span matTextPrefix>S/</span>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" [formField]="productForm.stockQuantity">
+          </mat-form-field>
+        </div>
+
+        <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
+        <button mat-stroked-button type="button" (click)="fileInput.click()">
+          <mat-icon>upload</mat-icon>
+          <span>{{selectedFile()?.name ?? 'Seleccionar imagen'}}</span>
+        </button>
+      </form>
+
+    </mat-card-content>
+
+    <mat-card-actions class="form-actions">
+      <button mat-stroked-button type="button" (click)="cleanForm()">
+        <mat-icon>clear</mat-icon>
+        Limpiar
+      </button>
+
+      <button mat-flat-button color="primary" type="button" (click)="createProduct()">
+        <mat-icon>add</mat-icon>
+        Crear
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
+  <div class="row p-5">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (product of products(); track product.productId) {
+              <tr>
+                <td><img [src]="product.imageUrl" width="50" height="50" style="object-fit: cover;"></td>
+                <td>{{product.name}}</td>
+                <td>{{product.categoryName}}</td>
+                <td>S/ {{product.price}}</td>
+                <td>{{product.stockQuantity}}</td>
+                <td>
+                  <button class="btn btn-sm btn-primary" (click)="openModal(modalEdit, product)">Edit</button>
+                  <button class="btn btn-sm btn-danger ms-1" (click)="delete(product.productId)">Delete</button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #modalEdit let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Editar Producto</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('c')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <input type="hidden" [formField]="editForm.productId">
+      <div class="mb-3">
+        <label class="form-label">Categoría</label>
+        <select class="form-select" [formField]="editForm.categoryId">
+          <option value="0" disabled>--Select--</option>
+          @for (category of categories(); track category.categoryId) {
+          <option [value]="category.categoryId">{{category.name}}</option>
+          }
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" [formField]="editForm.name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Precio</label>
+        <input type="number" class="form-control" [formField]="editForm.price">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Cantidad</label>
+        <input type="number" class="form-control" [formField]="editForm.stockQuantity">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Nueva imagen (opcional)</label>
+        <input type="file" class="form-control" accept="image/*" (change)="onEditFileSelected($event)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('c')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveChanges()"
+                [disabled]="editForm().invalid()">
+          Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

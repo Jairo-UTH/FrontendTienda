@@ -1,0 +1,115 @@
+
+.login-page {
+  width: 100%;
+  padding: 15px 0;
+  box-sizing: border-box;
+}
+
+.login-card {
+  width: calc(100% - 40px);
+  max-width: 875px;
+  margin: 0 auto;
+  padding: 10px 20px 20px;
+  border-radius: 16px;
+  background-color: #f8f7fa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.20);
+  box-sizing: border-box;
+}
+
+
+/* TÍTULO */
+
+mat-card-header {
+  padding: 5px 0 20px;
+}
+
+mat-card-title {
+  font-size: 28px;
+  font-weight: 400;
+  color: #1f1f1f;
+}
+
+
+/* FORMULARIO */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+
+/* CAMPOS */
+
+mat-form-field {
+  width: 100%;
+}
+
+
+/* BOTONES */
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  padding: 5px 10px 10px;
+  margin-top: 5px;
+}
+
+
+/* BOTÓN LIMPIAR */
+
+.btn-limpiar {
+  min-width: 120px;
+  height: 50px;
+  border-radius: 10px !important;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+
+/* BOTÓN ENTRAR */
+
+.btn-entrar {
+  min-width: 120px;
+  height: 50px;
+  border-radius: 10px !important;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+
+
+.icon {
+  font-size: 24px;
+  line-height: 0;
+  margin-right: 7px;
+  vertical-align: middle;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+  .login-card {
+    width: calc(100% - 20px);
+    padding: 10px 15px 20px;
+  }
+
+  mat-card-title {
+    font-size: 24px;
+  }
+
+  mat-card-actions {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

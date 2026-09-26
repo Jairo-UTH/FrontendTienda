@@ -1,0 +1,82 @@
+<div class="purchases-page">
+
+  <div class="purchases-header">
+
+    <div>
+      <h1>Mis compras</h1>
+      <p>Consulta el historial de tus pedidos</p>
+    </div>
+
+    <mat-icon class="purchases-header__icon">
+      shopping_bag
+    </mat-icon>
+
+  </div>
+
+
+  <mat-accordion class="purchases-list">
+
+    @for(order of orders(); track order.orderId)
+    {
+    <mat-expansion-panel class="purchase-panel">
+
+      <mat-expansion-panel-header>
+
+        <mat-panel-title class="purchase-panel__title">
+          <mat-icon> shopping_cart </mat-icon>
+          <span>  Orden # {{order.orderId}} </span>
+        </mat-panel-title>
+
+        <mat-panel-description class="purchase-panel__description">
+          <span class="purchase-panel__date">
+            <mat-icon>calendar_today</mat-icon>
+            {{order.date}}
+          </span>
+
+          <span class="purchase-panel__total"> L/ {{order.totalAmount | number: '1.2-2'}}  </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+
+      <!-- DETALLE DE LA COMPRA -->
+      <div class="purchase-detail">
+        <div class="purchase-detail__header">
+          <h2>Detalle de la compra</h2>
+        </div>
+
+        @for (product of order.details; track $index)
+        {
+
+        <div class="purchase-product">
+          <img [src]="product.imageUrl" class="purchase-product__image" />
+          <div class="purchase-product__info">
+            <h3>{{product.productName}} </h3>
+            <p> Cantidad: {{product.quantity}} </p>
+          </div>
+          <strong class="purchase-product__subtotal">
+            L/ {{product.total | number: '1.2-2'}}
+          </strong>
+        </div>
+
+        }
+
+        
+
+
+
+        <!-- TOTAL -->
+        <div class="purchase-detail__footer">
+          <span>Total de la compra</span>
+          <strong>   L/ {{order.totalAmount | number: '1.2-2'}} </strong>
+        </div>
+
+      </div>
+
+    </mat-expansion-panel>
+    }
+
+    
+
+  </mat-accordion>
+
+</div>

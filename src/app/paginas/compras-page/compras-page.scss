@@ -1,0 +1,297 @@
+.purchases-page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.purchases-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 500;
+  }
+
+
+  p {
+    margin: 6px 0 0;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+
+
+  &__icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+
+/* =========================================================
+   LISTA DE COMPRAS
+   ========================================================= */
+
+.purchases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+/* =========================================================
+   PANEL DE COMPRA
+   ========================================================= */
+
+.purchase-panel {
+  border-radius: 8px;
+  overflow: hidden;
+
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+  }
+
+
+  &__title mat-icon {
+    flex-shrink: 0;
+  }
+
+
+  &__description {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+  }
+
+
+  &__date {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+
+  &__date mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+
+  &__total {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+
+/* =========================================================
+   DETALLE DE LA COMPRA
+   ========================================================= */
+
+.purchase-detail {
+  padding: 8px 0 16px;
+
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 12px;
+  }
+
+
+  &__header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+
+  &__header span {
+    font-size: 14px;
+    opacity: 0.7;
+  }
+
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    font-size: 18px;
+  }
+
+
+  &__footer strong {
+    font-size: 20px;
+  }
+}
+
+
+/* =========================================================
+   PRODUCTO
+   ========================================================= */
+
+.purchase-product {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+
+  &__image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+
+
+  &__info {
+    min-width: 0;
+  }
+
+
+  &__info h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+
+  &__info p {
+    margin: 0 0 4px;
+    font-size: 14px;
+  }
+
+
+  &__info span {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+
+  &__subtotal {
+    white-space: nowrap;
+    font-size: 16px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .purchases-page {
+    padding: 16px;
+  }
+
+
+  .purchase-panel {
+
+    &__description {
+      gap: 12px;
+    }
+  }
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .purchases-page {
+    padding: 12px;
+  }
+
+
+  .purchases-header {
+
+    h1 {
+      font-size: 24px;
+    }
+  }
+
+
+  .purchase-panel {
+
+    &__description {
+      gap: 8px;
+    }
+
+
+    &__date {
+      font-size: 13px;
+    }
+
+
+    &__date mat-icon {
+      display: none;
+    }
+
+
+    &__total {
+      font-size: 13px;
+    }
+  }
+
+
+  .purchase-product {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 12px;
+
+
+    &__image {
+      width: 64px;
+      height: 64px;
+    }
+
+
+    &__subtotal {
+      grid-column: 2;
+      justify-self: start;
+      font-size: 15px;
+    }
+  }
+
+
+  .purchase-detail__footer {
+    justify-content: space-between;
+    font-size: 16px;
+  }
+}

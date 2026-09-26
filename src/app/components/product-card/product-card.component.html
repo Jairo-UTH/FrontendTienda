@@ -1,0 +1,31 @@
+<!-- Producto -->
+<mat-card class="product-card">
+
+  <img mat-card-image [src]="product().imageUrl" class="product-card__image" />
+
+  <mat-card-content class="product-card__content">
+
+    <h2 class="product-card__name">
+      {{product().name}}
+    </h2>
+
+    <span class="product-card__price">
+      L/ {{product().price | number: '1.2-2'}}
+    </span>
+
+  </mat-card-content>
+
+  <mat-card-actions class="product-card__actions">
+
+    <button mat-flat-button
+            color="primary"
+            [disabled]="outOfStock"
+            (click)="onAddToCart()"
+            class="product-card__button">
+      <mat-icon>{{ outOfStock ? 'block' : 'shopping_cart' }}</mat-icon>
+      {{ outOfStock ? 'Sin stock' : 'Agregar al carrito' }}
+    </button>
+
+  </mat-card-actions>
+
+</mat-card>
