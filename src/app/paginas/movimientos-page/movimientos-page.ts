@@ -62,7 +62,6 @@ export class MovimientosPage {
     })
   }
 
-  // ← NUEVO: al elegir el producto, precarga su precio de venta actual
   onProductoSeleccionado(productId: number): void {
     const producto = this.productos().find(p => p.productId === productId)
     if (!producto) return
@@ -78,7 +77,7 @@ export class MovimientosPage {
       tipoMovimiento: 'COMPRA',
       cantidad: Number(cantidad),
       precio: Number(precio),
-      precioVenta: precioVenta ? Number(precioVenta) : undefined,   // ← NUEVO: opcional
+      precioVenta: precioVenta ? Number(precioVenta) : undefined,   
     }).subscribe({
       next: () => {
         this._snackBar.open('Compra registrada, stock actualizado', 'ok', {
