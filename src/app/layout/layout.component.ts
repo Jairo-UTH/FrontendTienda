@@ -8,6 +8,7 @@ import { CarritoServicios } from '../servicios/carrito-servicios';
 import { AuthServicios } from '../servicios/auth-servicios';
 
 
+
 @Component({
   imports: [
     RouterLink, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatBadgeModule

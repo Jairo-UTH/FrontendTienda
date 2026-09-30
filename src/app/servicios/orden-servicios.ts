@@ -17,5 +17,8 @@ export class OrdenServicios {
 
   getAll(): Observable<GetOrderListResponse> {
     return this.http.get<GetOrderListResponse>(`${this.endPoint}/getAll`)
+
+    
+
   }
 }

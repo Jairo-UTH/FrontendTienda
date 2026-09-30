@@ -13,6 +13,7 @@ export interface GetOrderResponse {
   orderId: number;
   date: string;
   totalAmount: number;
+  employeeName: string | null;
   details: GetOrderDetailResponse[];
 }
 

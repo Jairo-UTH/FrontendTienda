@@ -1,0 +1,152 @@
+<div class="movimientos-page">
+
+  <mat-card class="movimientos-card">
+    <mat-card-header>
+      <mat-card-title>Registrar compra y Reabastlecimiento de stock</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form class="movimientos-form">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Producto</mat-label>
+          <mat-select [formField]="compraForm.productId"
+                      (selectionChange)="onProductoSeleccionado($event.value)">
+            @for (producto of productos(); track producto.productId) {
+            <mat-option [value]="producto.productId">{{ producto.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" [formField]="compraForm.cantidad">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Precio de compra</mat-label>
+            <input matInput type="number" [formField]="compraForm.precio">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Precio de venta (opcional)</mat-label>
+            <input matInput type="number" [formField]="compraForm.precioVenta">
+            <mat-hint></mat-hint>
+          </mat-form-field>
+        </div>
+
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-flat-button color="primary" type="button"
+              [disabled]="compraForm().invalid()" (click)="registrarCompra()">
+        Registrar compra
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="movimientos-card">
+    <mat-card-header>
+      <mat-card-title>Historial de movimientos</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="filtro-movimientos">
+        <mat-form-field appearance="outline">
+          <mat-label>Filtrar por producto</mat-label>
+          <mat-select [(value)]="filtroProductId">
+            @for (producto of productos(); track producto.productId) {
+            <mat-option [value]="producto.productId.toString()">{{ producto.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="button" (click)="filtrarPorProducto()">
+          Filtrar
+        </button>
+
+        @if (filtroActivo()) {
+        <button mat-stroked-button type="button" (click)="verTodosLosMovimientos()">
+          Ver todos
+        </button>
+        }
+      </div>
+
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Fecha</th>
+            <th>Producto</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Empleado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (m of movimientos(); track m.idProductoMovimiento) {
+          <tr>
+            <td>{{m.fechaMovimiento}}</td>
+            <td>{{m.productName}}</td>
+            <td>{{m.tipoMovimiento}}</td>
+            <td>{{m.cantidad}}</td>
+            <td>L/ {{m.precio}}</td>
+            <td>{{m.employeeName ?? '—'}}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="movimientos-card">
+    <mat-card-header>
+      <mat-card-title>Consultar producto</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="filtro-movimientos">
+        <mat-form-field appearance="outline">
+          <mat-label>Producto</mat-label>
+          <mat-select [(value)]="resumenProductId">
+            @for (producto of productos(); track producto.productId) {
+            <mat-option [value]="producto.productId.toString()">{{ producto.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="button" (click)="consultarResumen()">
+          Consultar
+        </button>
+      </div>
+
+      @if (resumen(); as r) {
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Producto</th>
+            <th>Existencia</th>
+            <th>Precio de venta</th>
+            <th>Última compra</th>
+            <th>Último precio de compra</th>
+            <th>Última venta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{r.productName}}</td>
+            <td>{{r.existencia}}</td>
+            <td>L/ {{r.precioVenta}}</td>
+            <td>{{r.fechaUltimaCompra ?? 'Sin compras registradas'}}</td>
+            <td>{{r.ultimoPrecioCompra ? 'L/ ' + r.ultimoPrecioCompra : '—'}}</td>
+            <td>{{r.fechaUltimaVenta ?? 'Sin ventas registradas'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      }
+    </mat-card-content>
+  </mat-card>
+
+</div>

@@ -8,7 +8,7 @@ import { ListEmployeePage } from './paginas/list-employee-page/list-employee-pag
 import { CreateEmployeePage } from './paginas/create-employee-page/create-employee-page';
 import { LoginPage } from './paginas/login-page/login-page';
 import { gerenteGuard } from './guards/gerente-guards';
-
+import { MovimientosPage } from './paginas/movimientos-page/movimientos-page';
 export const routes: Routes = [
 
   { path: 'login', component: LoginPage },
@@ -22,6 +22,7 @@ export const routes: Routes = [
       { path: 'newProduct', component: NewProduPage, canActivate: [gerenteGuard] },
       { path: 'createEmployee', component: CreateEmployeePage, canActivate: [gerenteGuard] },
       { path: 'listEmployee', component: ListEmployeePage, canActivate: [gerenteGuard] },
+      { path: 'movimientos', component: MovimientosPage, canActivate: [gerenteGuard] },
     ]
   }
 
