@@ -1,9 +1,9 @@
-export interface CreateProductRequest
-{
+export interface CreateProductRequest {
   categoryId: number;
   name: string;
   price: number;
   stockQuantity: number;
+  idImpuesto: number;    
   image?: File;
 }
 
@@ -18,6 +18,9 @@ export interface GetProductResponse {
   name: string;
   price: number;
   stockQuantity: number;
+  idImpuesto: number;         
+  impuestoNombre: string;      
+  impuestoPorcentaje: number;  
   imageUrl: string;
 }
 
@@ -36,6 +39,7 @@ export interface UpdateProductRequest {
   name: string;
   price: number;
   stockQuantity: number;
+  idImpuesto: number;    
   image?: File;
 }
 
@@ -45,6 +49,7 @@ export interface ProductEditModel {
   name: string;
   price: string;
   stockQuantity: string;
+  idImpuesto: string; 
 }
 
 export interface GetProductListResponse {

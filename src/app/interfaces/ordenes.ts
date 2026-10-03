@@ -13,15 +13,17 @@ export interface GetOrderResponse {
   orderId: number;
   date: string;
   totalAmount: number;
+  totalImpuesto: number;      
   employeeName: string | null;
   details: GetOrderDetailResponse[];
 }
 
-export interface GetOrderDetailResponse { 
-  imageUrl: string,
-  productName: string,
-  quantity: number,
-  total: number
+export interface GetOrderDetailResponse {
+  imageUrl: string;
+  productName: string;
+  quantity: number;
+  total: number;
+  impuesto: number;          
 }
 
 

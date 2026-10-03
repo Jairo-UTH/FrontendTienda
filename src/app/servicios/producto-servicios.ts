@@ -21,6 +21,7 @@ export class ProductoServicios {
     formData.append('name', request.name)
     formData.append('price', request.price.toString())
     formData.append('stockQuantity', request.stockQuantity.toString())
+    formData.append('idImpuesto', request.idImpuesto.toString())  
 
     if (request.image) formData.append('image', request.image)
 
@@ -39,6 +40,7 @@ export class ProductoServicios {
     formData.append('name', request.name)
     formData.append('price', request.price.toString())
     formData.append('stockQuantity', request.stockQuantity.toString())
+    formData.append('idImpuesto', request.idImpuesto.toString()) 
 
     if (request.image) formData.append('image', request.image)
 

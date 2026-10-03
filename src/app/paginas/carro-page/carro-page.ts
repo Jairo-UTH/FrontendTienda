@@ -35,10 +35,6 @@ export class CarroPage {
     )
   );
 
-  protected subtotal = computed(() => this.total() / 1.18);
-
-  protected taxes = computed(() => this.total() - this.subtotal());
-
   protected increaseQuantity(productId: number): void {
     this.cartService.increaseQuantity(productId);
   }
@@ -76,4 +72,3 @@ export class CarroPage {
     });
   }
 }
-

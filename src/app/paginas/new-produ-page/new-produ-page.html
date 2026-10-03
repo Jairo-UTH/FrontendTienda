@@ -39,6 +39,17 @@
           </mat-form-field>
         </div>
 
+        <mat-form-field appearance="outline">
+          <mat-label>Impuesto</mat-label>
+          <mat-select [formField]="productForm.idImpuesto">
+            @for (impuesto of impuestos(); track impuesto.idImpuesto) {
+            <mat-option [value]="impuesto.idImpuesto">{{ impuesto.nombre }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+
+
         <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)">
         <button mat-stroked-button type="button" (click)="fileInput.click()">
           <mat-icon>upload</mat-icon>
@@ -128,6 +139,16 @@
       <div class="mb-3">
         <label class="form-label">Cantidad</label>
         <input type="number" class="form-control" [formField]="editForm.stockQuantity">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Impuesto</label>
+        <select class="form-select" [formField]="editForm.idImpuesto">
+          <option value="0" disabled>--Seleccionar--</option>
+          @for (impuesto of impuestos(); track impuesto.idImpuesto) {
+          <option [value]="impuesto.idImpuesto">{{impuesto.nombre}}</option>
+          }
+        </select>
       </div>
       <div class="mb-3">
         <label class="form-label">Nueva imagen (opcional)</label>

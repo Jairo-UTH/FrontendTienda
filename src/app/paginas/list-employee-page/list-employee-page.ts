@@ -78,7 +78,7 @@ export class ListEmployeePage implements OnInit {
           email: response.email,
           birthDate: birthDate.toISOString().split("T")[0],
           positionId: response.positionId.toString(),
-          password: ""   // ← NUEVO: siempre vacío, nunca se trae la contraseña real
+          password: ""   
         })
       }, error: (e) => { console.log(e) }
     })
@@ -96,7 +96,7 @@ export class ListEmployeePage implements OnInit {
       positionId: Number(this.employeeForm.positionId().value())
     }
 
-    if (password.trim().length > 0) request.password = password   // ← NUEVO
+    if (password.trim().length > 0) request.password = password   
 
     this.employeeService.update(request).subscribe({
       next: response => {

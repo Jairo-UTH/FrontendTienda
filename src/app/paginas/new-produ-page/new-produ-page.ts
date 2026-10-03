@@ -8,18 +8,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
 import { getCategoryResponse } from '../../interfaces/categorias';
 import { CategoriaServicios } from '../../servicios/categoria-servicios';
 import { ProductoServicios } from '../../servicios/producto-servicios';
+import { ImpuestoServicios } from '../../servicios/impuesto-servicios';   
+import { GetImpuestoResponse } from '../../interfaces/impuesto';        
 import {
   CreateProductRequest,
   GetProductResponse,
   ProductEditModel,
   UpdateProductRequest,
 } from '../../interfaces/produc';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   imports: [MatCardModule, MatButtonModule, MatFormFieldModule,
@@ -30,12 +32,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class NewProduPage {
 
-  // ===== Crear producto=====
+  // ===== Crear producto =====
   private initialData = {
     categoryId: '0',
     name: '',
     price: '',
     stockQuantity: '',
+    idImpuesto: '0',   
     image: null
   }
 
@@ -45,19 +48,26 @@ export class NewProduPage {
     required(field.name);
     required(field.price);
     required(field.stockQuantity);
+    required(field.idImpuesto);  
   })
 
   protected selectedFile = signal<File | null>(null);
   protected categories = signal<getCategoryResponse[]>([])
+  protected impuestos = signal<GetImpuestoResponse[]>([])   
   protected categoryService = inject(CategoriaServicios)
   protected productService = inject(ProductoServicios)
+  protected impuestoService = inject(ImpuestoServicios)    
   private _snackBar = inject(MatSnackBar)
   private modalService = inject(NgbModal)
 
   constructor() {
     this.categoryService.getAll().subscribe({
-      next: resp => this.categories.set(resp.categories),   
-      error: (e) => console.log(e.error)
+      next: resp => this.categories.set(resp.categories),
+      error: (e: HttpErrorResponse) => console.log(e.error)
+    })
+    this.impuestoService.getAll().subscribe({               
+      next: resp => this.impuestos.set(resp.impuestos),
+      error: (e: HttpErrorResponse) => console.log(e.error)
     })
     this.getProducts()
   }
@@ -68,12 +78,13 @@ export class NewProduPage {
   }
 
   createProduct(): void {
-    const { categoryId, name, price, stockQuantity } = this.productForm().value()
+    const { categoryId, name, price, stockQuantity, idImpuesto } = this.productForm().value()
     const req: CreateProductRequest = {
       categoryId: Number(categoryId),
       name,
       price: Number(price),
-      stockQuantity: Number(stockQuantity)
+      stockQuantity: Number(stockQuantity),
+      idImpuesto: Number(idImpuesto),  
     }
     if (this.selectedFile()) req.image = this.selectedFile()!
 
@@ -85,9 +96,9 @@ export class NewProduPage {
           duration: 2000
         })
         this.cleanForm()
-        this.getProducts()   
+        this.getProducts()
       },
-      error: (e) => console.log(e.error)
+      error: (e: HttpErrorResponse) => console.log(e.error)
     })
   }
 
@@ -97,7 +108,7 @@ export class NewProduPage {
     this.selectedFile.set(null)
   }
 
-  // ===== Lista / editar / eliminar  =====
+  // ===== Lista / editar / eliminar =====
   protected products = signal<GetProductResponse[]>([])
   private editSelectedFile = signal<File | null>(null)
 
@@ -107,6 +118,7 @@ export class NewProduPage {
     name: '',
     price: '',
     stockQuantity: '',
+    idImpuesto: '0',   
   })
 
   protected editForm = form(this.editModel, (field) => {
@@ -114,11 +126,12 @@ export class NewProduPage {
     required(field.name);
     required(field.price);
     required(field.stockQuantity);
+    required(field.idImpuesto); 
   })
 
   getProducts(): void {
     this.productService.getAll({ categoryId: '0' }).subscribe({
-      next: resp => this.products.set(resp.products),   
+      next: resp => this.products.set(resp.products),
       error: (e: HttpErrorResponse) => console.log(e.error)
     })
   }
@@ -136,6 +149,7 @@ export class NewProduPage {
       name: product.name,
       price: product.price.toString(),
       stockQuantity: product.stockQuantity.toString(),
+      idImpuesto: product.idImpuesto.toString(),  
     })
     this.modalService.open(modalHtml, { size: 'lg' })
   }
@@ -147,6 +161,7 @@ export class NewProduPage {
       name: this.editForm.name().value(),
       price: Number(this.editForm.price().value()),
       stockQuantity: Number(this.editForm.stockQuantity().value()),
+      idImpuesto: Number(this.editForm.idImpuesto().value()), 
     }
     if (this.editSelectedFile()) request.image = this.editSelectedFile()!
 
@@ -156,7 +171,7 @@ export class NewProduPage {
         this.modalService.dismissAll()
         this.getProducts()
       },
-      error: (e) => console.log(e.error)
+      error: (e: HttpErrorResponse) => console.log(e.error)
     })
   }
 
@@ -176,7 +191,7 @@ export class NewProduPage {
             Swal.fire({ text: 'Producto Removido!', icon: 'success' })
             this.getProducts()
           },
-          error: (e) => {
+          error: (e: HttpErrorResponse) => {
             console.log(e.error)
             Swal.fire({ text: 'No se pudo eliminar (puede tener pedidos asociados)', icon: 'error' })
           }

@@ -42,6 +42,9 @@
       <div class="purchase-detail">
         <div class="purchase-detail__header">
           <h2>Detalle de la compra</h2>
+          @if (order.employeeName) {
+          <span class="purchase-detail__employee">Atendido por: {{order.employeeName}}</span>
+          }
         </div>
 
         @for (product of order.details; track $index)
@@ -52,6 +55,7 @@
           <div class="purchase-product__info">
             <h3>{{product.productName}} </h3>
             <p> Cantidad: {{product.quantity}} </p>
+            <p class="purchase-product__tax">ISV: L/ {{product.impuesto | number: '1.2-2'}}</p>
           </div>
           <strong class="purchase-product__subtotal">
             L/ {{product.total | number: '1.2-2'}}
@@ -60,17 +64,20 @@
 
         }
 
-        
-
-
-
-        <!-- TOTAL -->
         <div class="purchase-detail__footer">
+          <span>Total de impuestos</span>
+          <span>L/ {{order.totalImpuesto | number: '1.2-2'}}</span>
+        </div>
+
+
+        <div class="purchase-detail__footer">
+
           <span>Total de la compra</span>
           <strong>   L/ {{order.totalAmount | number: '1.2-2'}} </strong>
         </div>
 
       </div>
+
 
     </mat-expansion-panel>
     }
@@ -78,5 +85,7 @@
     
 
   </mat-accordion>
+
+
 
 </div>
