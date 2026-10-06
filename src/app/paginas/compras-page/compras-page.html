@@ -13,6 +13,20 @@
 
   </div>
 
+  @if (authService.isGerente()) {
+  <div class="reportes-botones">
+    <button mat-stroked-button type="button" (click)="abrirModalVentas(modalVentas)">
+      <mat-icon>point_of_sale</mat-icon> Reporte de ventas
+    </button>
+    <button mat-stroked-button type="button" (click)="abrirModalMovimiento(modalMovimiento)">
+      <mat-icon>swap_horiz</mat-icon> Movimiento por producto
+    </button>
+    <button mat-stroked-button type="button" (click)="abrirModalVentasPorDia(modalVentasPorDia)">
+      <mat-icon>calendar_month</mat-icon> Ventas por día
+    </button>
+  </div>
+  }
+
 
   <mat-accordion class="purchases-list">
 
@@ -69,7 +83,7 @@
           <span>L/ {{order.totalImpuesto | number: '1.2-2'}}</span>
         </div>
 
-
+        <!-- TOTAL -->
         <div class="purchase-detail__footer">
 
           <span>Total de la compra</span>
@@ -80,12 +94,90 @@
 
 
     </mat-expansion-panel>
+
     }
 
-    
+
 
   </mat-accordion>
 
 
-
 </div>
+
+<!-- Modal: Reporte de ventas -->
+<ng-template #modalVentas let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Reporte de ventas</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label">Desde</label>
+      <input type="date" class="form-control" [(ngModel)]="ventasDesde">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Hasta</label>
+      <input type="date" class="form-control" [(ngModel)]="ventasHasta">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="generarTodasLasVentas()">
+      Imprimir todas las ventas
+    </button>
+    <button type="button" class="btn btn-primary"
+            [disabled]="!ventasDesde || !ventasHasta" (click)="generarVentas()">
+      Generar
+    </button>
+  </div>
+</ng-template>
+
+<!-- Modal: Movimiento por producto -->
+<ng-template #modalMovimiento let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Movimiento por producto</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label">Producto</label>
+      <select class="form-select" [(ngModel)]="productoSeleccionado">
+        <option value="" disabled>--Seleccionar--</option>
+        @for (producto of productos(); track producto.productId) {
+        <option [value]="producto.productId">{{producto.name}}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button type="button" class="btn btn-primary"
+            [disabled]="!productoSeleccionado" (click)="generarMovimiento()">
+      Generar
+    </button>
+  </div>
+</ng-template>
+
+<!-- Modal: Ventas por día -->
+<ng-template #modalVentasPorDia let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Ventas por día</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label">Desde</label>
+      <input type="date" class="form-control" [(ngModel)]="ventasPorDiaDesde">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Hasta</label>
+      <input type="date" class="form-control" [(ngModel)]="ventasPorDiaHasta">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button type="button" class="btn btn-primary"
+            [disabled]="!ventasPorDiaDesde || !ventasPorDiaHasta" (click)="generarVentasPorDia()">
+      Generar
+    </button>
+  </div>
+</ng-template>

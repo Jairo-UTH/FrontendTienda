@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { OrdenServicios } from '../../servicios/orden-servicios';
 import { CarritoServicios } from '../../servicios/carrito-servicios';
+import { ReporteServicios } from '../../servicios/reporte-servicios';
 import { CreateOrderRequest } from '../../interfaces/ordenes';
 
 import Swal from 'sweetalert2';
@@ -28,6 +29,7 @@ export class CarroPage {
 
   protected cartService = inject(CarritoServicios);
   private orderService = inject(OrdenServicios);
+  private reporteService = inject(ReporteServicios);
 
   protected total = computed(() =>
     this.cartService.getItems().reduce(
@@ -59,16 +61,27 @@ export class CarroPage {
     };
 
     this.orderService.create(req).subscribe({
-      next: resp => {
+      next: orderId => {
         Swal.fire({
           title: "Compra Realizada",
-          text: `Nro de orden: ${resp}`,
+          text: `Nro de orden: ${orderId}`,
           icon: "success"
         });
 
         this.cartService.cleanItem()
+        this.descargarFactura(orderId)
       },
       error: (e) => console.log(e.error)
     });
+  }
+
+  private descargarFactura(orderId: number): void {
+    this.reporteService.getFactura(orderId).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob)
+        window.open(url, '_blank')
+      },
+      error: (e) => console.log(e.error)
+    })
   }
 }

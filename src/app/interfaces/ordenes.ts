@@ -13,7 +13,7 @@ export interface GetOrderResponse {
   orderId: number;
   date: string;
   totalAmount: number;
-  totalImpuesto: number;      
+  totalImpuesto: number;
   employeeName: string | null;
   details: GetOrderDetailResponse[];
 }
@@ -23,7 +23,7 @@ export interface GetOrderDetailResponse {
   productName: string;
   quantity: number;
   total: number;
-  impuesto: number;          
+  impuesto: number;
 }
 
 

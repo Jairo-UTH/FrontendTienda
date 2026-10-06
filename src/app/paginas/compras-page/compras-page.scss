@@ -294,4 +294,11 @@
     justify-content: space-between;
     font-size: 16px;
   }
+
+  .reportes-botones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 16px 0 24px;
+  }
 }
